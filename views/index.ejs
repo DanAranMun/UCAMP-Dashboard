@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <h1>Resources</h1>
+    <ul>
+      <% for(let i = 0; i < resources.stats.length; i++) { %>
+        <li><%= resources.stats[i].base_stat %> | <%= resources.stats[i].stat.name %></li>
+      <% } %>
+    </ul>
+  </body>
+</html>

@@ -9,10 +9,10 @@ app.get('/', (req,res)=>{
     .then(response => {
       const resources = response.data;
       console.log(resources)
-  //    res.render('index', { resources });
+      res.render('index', { resources });
     })
     .catch(error => {
-  //    res.render('error', { error });
+      res.render('error', { error });
     });   
 })
 app.listen(port, () => {
