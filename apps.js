@@ -5,7 +5,7 @@ const port = 3000
 
 app.set('view engine','ejs')
 app.get('/', (req,res)=>{
-    axios.get('http://data.fixer.io/api/latest?access_key=ee921429d652d4f6bed12e303055cb03&base=USD&symbols=GBP,JPY,EUR')
+    axios.get('https://pokeapi.co/api/v2/pokemon/6')
     .then(response => {
       const resources = response.data;
       console.log(resources)
@@ -15,3 +15,6 @@ app.get('/', (req,res)=>{
   //    res.render('error', { error });
     });   
 })
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
