@@ -2,28 +2,48 @@
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #pokemonChart {
+      max-width: 600px;
+      max-height: 600px;
+    }
+    
+   .container{
+display: flex;
+align-items: center;
+flex-direction: column;
+    }
+    
+      .content{
+display: flex;
+flex-direction: row;
+align-content: flex-start;
+justify-content: space-around;
+align-items: center;
+    }
+  </style>
 </head>
 
 <body>
-  <h3>Detalle de <%= resources.name %>  </h3>
-  <p>Altura: <%= resources.height %>  </p>
-  <p>Peso: <%= resources.weight %>  </p>
+  <div class="container">
+    <div class="navbar">
+      <h3>Detalle de <%= resources.name %>  </h3>
+      <p>Altura: <%= resources.height %>  </p>
+      <p>Peso: <%= resources.weight %>  </p>
+    </div>
+    <div class="content">
+      <img src="<%= resources.sprites.other.home.front_default %>" alt="Pokemon <%= resources.name %>">
+      <canvas id="pokemonChart"></canvas>
+         </div>
+    <a href="/">back</a>
+  </div>
+   
+ 
 
-  <canvas id="pokemonChart"></canvas>
-
-  <ul>
-    <% for(let i=0; i < resources.stats.length; i++) { %>
-      <li>
-        <%= resources.stats[i].base_stat %> | <%= resources.stats[i].stat.name %>
-      </li>
-      <% } %>
-  </ul>
-  <img src="<%= resources.sprites.other.home.front_default %>" alt="Pokemon <%= resources.name %>">
-  <a href="/">back</a>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const pokemonData =<%-JSON.stringify(resources.stats)%>
-const ctx = document.getElementById('pokemonChart').getContext('2d');
+      const pokemonData =<%-JSON.stringify(resources.stats)%>;
+      const ctx = document.getElementById('pokemonChart').getContext('2d');
       const myChart = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -44,11 +64,16 @@ const ctx = document.getElementById('pokemonChart').getContext('2d');
         },
         options: {
           scales: {
-            y: {
-              beginAtZero: true
+            r: {
+              angleLines: {
+                display: false
+              },
+              suggestedMin: 0,
+              suggestedMax: <%= Math.max(...resources.stats.map(pokemon => pokemon.base_stat)) %>
             }
           }
         }
+
       });
     })
 
