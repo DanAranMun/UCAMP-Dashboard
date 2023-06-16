@@ -8,17 +8,24 @@
 <body>
   <h1>Pokefinder</h1>
 
-  <input type="text" name="pokemon" id="Pokemon">
+  <input type="text" name="pokemon" id="Pokemon" list="pokemon-list">
+  <datalist id="pokemon-list"></datalist>
   <button id="enviar">consultar</button>
 
   <script>
     const input = document.getElementById('Pokemon');
     const button = document.getElementById('enviar');
-
+    const datalist = document.getElementById('pokemon-list');
     button.addEventListener('click', () => {
       if(input.value !== '0') {
         window.location.href = `/pokemon/${input.value.trim().toLowerCase()}`
       } 
     });
+    fetch("https://pokeapi.co/api/v2/pokemon/?limit=512").then(response=>response.json()).then(data=>(
+          data.results.forEach(pokemon=>{
+          datalist.innerHTML+=`<option value="${pokemon.name}"/>`       
+         })
+      )
+    )
   </script>
 </body>
