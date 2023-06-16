@@ -1,16 +1,58 @@
 <html>
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </head>
-  <body>
-    <h1>Detalle de <%= resources.name %></h1>
-    <h3><%= resources.name %></h3>
-    <ul>
-      <% for(let i = 0; i < resources.stats.length; i++) { %>
-        <li><%= resources.stats[i].base_stat %> | <%= resources.stats[i].stat.name %></li>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <h3>Detalle de <%= resources.name %>  </h3>
+  <p>Altura: <%= resources.height %>  </p>
+  <p>Peso: <%= resources.weight %>  </p>
+
+  <canvas id="pokemonChart"></canvas>
+
+  <ul>
+    <% for(let i=0; i < resources.stats.length; i++) { %>
+      <li>
+        <%= resources.stats[i].base_stat %> | <%= resources.stats[i].stat.name %>
+      </li>
       <% } %>
-    </ul>
-    <img src="<%= resources.sprites.other.home.front_default %>" alt="Pokemon <%= resources.name %>">
-    <a href="/">back</a>
-  </body>
+  </ul>
+  <img src="<%= resources.sprites.other.home.front_default %>" alt="Pokemon <%= resources.name %>">
+  <a href="/">back</a>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pokemonData =<%-JSON.stringify(resources.stats)%>
+const ctx = document.getElementById('pokemonChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: pokemonData.map(pokemon => pokemon.stat.name),
+          datasets: [{
+            label: 'Stats',
+            data: pokemonData.map(pokemon => pokemon.base_stat),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    })
+
+  </script>
+</body>
+
 </html>
