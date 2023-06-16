@@ -17,7 +17,7 @@
 
     button.addEventListener('click', () => {
       if(input.value !== '0') {
-        window.location.href = `/pokemon/${input.value}`
+        window.location.href = `/pokemon/${input.value.trim().toLowerCase()}`
       } 
     });
   </script>
