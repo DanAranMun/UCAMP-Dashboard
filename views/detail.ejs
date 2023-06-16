@@ -1,12 +1,13 @@
 <html>
   <body>
-    <h1>Resources</h1>
+    <h1>Detalle de <%= resources.name %></h1>
     <h3><%= resources.name %></h3>
     <ul>
       <% for(let i = 0; i < resources.stats.length; i++) { %>
         <li><%= resources.stats[i].base_stat %> | <%= resources.stats[i].stat.name %></li>
       <% } %>
     </ul>
-    <img src="<%= resources.sprites.front_shiny %>" alt="Pokemon <%= resources.name %>">
+    <img src="<%= resources.sprites.other.home.front_default %>" alt="Pokemon <%= resources.name %>">
+    <a href="/pokemon">back</a>
   </body>
 </html>
