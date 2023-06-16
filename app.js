@@ -4,18 +4,8 @@ const app = express()
 const port = 3000
 
 app.set('view engine','ejs')
+
 app.get('/', (req,res)=>{
-    axios.get('https://pokeapi.co/api/v2/pokemon/6')
-    .then(response => {
-      const resources = response.data;
-      console.log(resources)
-      res.render('index', { resources });
-    })
-    .catch(error => {
-      res.render('error', { error });
-    });   
-})
-app.get('/pokemon', (req,res)=>{
   res.render('dynamic');  
 })
 app.get('/pokemon/:id', (req,res)=>{
